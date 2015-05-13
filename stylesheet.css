@@ -1,0 +1,43 @@
+.screen {
+    height: 750px;
+    width: 80%;
+    border: 5px solid black;
+    position: relative;
+    left: 20px;
+    background-color: #E0E0E0;
+}
+
+.bird {
+    width: 35px;
+    height: 35px;
+    background: black;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+
+    position: absolute;
+    left: 100px;
+    bottom: 50%;
+}
+
+.obs{
+}
+
+.obsTop {
+    background-color: black;
+    position: absolute;
+    top: 0px;
+    width: 80px;
+}
+
+.obsBottom {
+    background-color: black;
+    position: absolute;
+    bottom: 0px;
+    width: 80px;
+}
+
+#start {
+    position: relative;
+    left: 50%;
+}
