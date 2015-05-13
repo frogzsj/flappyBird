@@ -7,12 +7,18 @@ $(document).ready(function() {
 	var obsHoleHeight = 150;
 	var obsWidth = parseInt($(".obsTop").css("width"), 10);
 	var obsArray = [ ];
-	var obsSpacing = 120;
+	var obsSpacing = 200;
 	
+	var birdInitialPos = parseInt($('.bird').css('bottom'), 10);
   var birdObj = {
-	  bottomMargin: parseInt($('.bird').css('bottom'), 10)
+	  bottomMargin: birdInitialPos,
+		lastJump: 0
 	};
 	var birdHeight = parseInt($('.bird').css('height'), 10);
+	
+	var gameStatus = {
+	  running: false
+	}
 
 	var intervalId;
 
@@ -33,10 +39,13 @@ $(document).ready(function() {
 	}
 	
 	var updateBird = function() {
-	  var curBottom = birdObj.bottomMargin;
-		var newBottom = curBottom - 0.5;
+		var timeSinceJump = birdObj.lastJump + 1;
+    var curBottom = birdObj.bottomMargin;
+		var newBottom = curBottom - (timeSinceJump * 0.02);
 
+		birdObj.lastJump = timeSinceJump;
 		birdObj.bottomMargin = newBottom;
+		
 	}
 
   $(document).keypress(function(event) {
@@ -44,6 +53,7 @@ $(document).ready(function() {
   	
 	  if (event.which === 32) {
 		  birdObj.bottomMargin = curBottom + 75;
+			birdObj.lastJump = 0;
 		}
 
 		if (birdObj.bottomMargin >= (screenHeight - birdHeight)) {
@@ -81,7 +91,7 @@ $(document).ready(function() {
 		
 		$('.bird').css('bottom', bottomPropVal);
 		
-		if (birdObj.bottomMargin === 0) {
+		if (birdObj.bottomMargin <= 0) {
 		  gameOver();
 		}
   }
@@ -144,13 +154,24 @@ $(document).ready(function() {
 	}
 
 	var gameOver = function() {
+	  gameStatus.running = false;
 		alert("Game Over...");
 		clearInterval(intervalId);
+		for (var key = obsArray.length - 1; key >= 0; key--) {
+		  $('#' + obsArray[key].Id).remove();
+			obsArray.pop();
+		}
 	}
 
 	$("#start").click(function() {
+	  if (!gameStatus.running) {
+      birdObj.bottomMargin = birdInitialPos;
+			birdObj.lastJump = 0;
+			gameStatus.running = true;
+    }
+		
 		//console.log("array", obsArray);
-		if (intervalId) {
+		if (intervalId !== undefined) {
 			clearInterval(intervalId);
 		}
 		intervalId = setInterval(gameLoop, 5);

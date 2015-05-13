@@ -20,6 +20,15 @@
     bottom: 50%;
 }
 
+#picture {
+  width: 35px;
+	height: 35px;
+	-moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+}
+	
+
 .obs{
 }
 
@@ -39,5 +48,10 @@
 
 #start {
     position: relative;
-    left: 50%;
+    left: 5%;
+}
+
+#stop {
+    position: relative;
+		left: 5%;
 }
