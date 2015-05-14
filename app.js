@@ -17,7 +17,8 @@ $(document).ready(function() {
 	var birdHeight = parseInt($('.bird').css('height'), 10);
 	
 	var gameStatus = {
-	  running: false
+	  running: false,
+	  points: 0
 	}
 
 	var intervalId;
@@ -105,6 +106,7 @@ $(document).ready(function() {
     }
     if (obsArray[key].rightMargin === (screenWidth - obsWidth)) {
     	$("#" + obsArray[key].Id).hide();
+    	gameStatus.points += 1;
     }
 		
 		rightPropVal = obsArray[key].rightMargin + "px";
@@ -155,12 +157,13 @@ $(document).ready(function() {
 
 	var gameOver = function() {
 	  gameStatus.running = false;
-		alert("Game Over...");
+		alert("Game Over...\n   Total: " + gameStatus.points);
 		clearInterval(intervalId);
 		for (var key = obsArray.length - 1; key >= 0; key--) {
 		  $('#' + obsArray[key].Id).remove();
 			obsArray.pop();
 		}
+		gameStatus.points = 0;
 	}
 
 	$("#start").click(function() {
