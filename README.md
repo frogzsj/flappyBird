@@ -1,4 +1,4 @@
-# flappyBird
-game I am working on
+# FrankyBird
+This is a Flappy Bird clone I did as my first ever JavaScript project. 
 
-blabla?
+## To Run:
